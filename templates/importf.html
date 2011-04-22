@@ -1,0 +1,22 @@
+
+<html>
+<!-- import favorites from firefox or chrome -->
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <title>Import favorites</title>
+        </head>
+
+<body>
+<p><center>
+$:render.ext_menu()
+    
+    <form method="POST" enctype="multipart/form-data" action="import">
+        <input type="file" name="file" />
+        <input type="submit"  value="import"/>
+    </form>
+</center></p>
+
+
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+$def with (search_result, tag_input, page_num)
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+        <title>Tag: $tag_input</title>
+    </head>
+    
+<body>
+$:render.ext_menu()
+
+<br>
+<!-- tag filter -->
+
+
+$:render.ext_list_favorites(search_result)
+
+<!-- pagination -->
+$ next_page = page_num + 1
+$ previous_page = page_num - 1
+
+$if previous_page == -1:
+    <p><center> <a href="/" >prev</a>   <a href="/tags/$tag_input/$next_page">next</a></center></p>
+$elif (previous_page >= 0):
+    <p><center> <a href="/tags/$tag_input/$previous_page">prev</a>   <a href="/tags/$tag_input/$next_page">next</a></center></p>
+</body>
+
+</html>

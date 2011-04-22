@@ -1,0 +1,5 @@
+*.db
+*.pyc
+dev_links.txt
+saved/*.html
+last.txt

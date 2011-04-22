@@ -1,0 +1,103 @@
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Add new favorite</title>
+        
+                <style type="text/css">
+
+        .save_button {
+             margin-left: 600%;
+        }
+        
+        </style>
+        
+        <script type="text/javascript">
+            // VALIDATION
+            
+            
+            // MAX\MIN Title is useless if user decides to 'Get' the page, server-side validation needed.
+            // look at utils.py --> grab_title()
+            var MAX_TITLE_LENGTH = 140;
+            var MIN_TITLE_LENGTH = 4 
+            var MAX_DESC_LENGTH = 140;
+            var MIN_DESC_LENGTH = 0;
+            var MAX_TAGS_LENGTH = 10;
+            var MIN_TAGS_LENGTH = 1;
+
+            
+            function validator() {
+                valid = validate_URL();
+                
+                return valid;
+            }
+            
+            // lazy to write good url validator
+            
+            function validate_URL() {
+            if ( document.add.url.value.length < 4 ) {
+                return false; 
+                } else {
+                return validate_Title();
+                }
+            }
+            
+            function validate_Title() {
+                if (document.add.get_title.value != "on") { // if title NOT extracted from html
+                 if ( (document.add.title.value.length > MAX_TITLE_LENGTH) || (document.add.title.value.length < MIN_TITLE_LENGTH) ) {
+                    return false;
+                    } else {
+                    return validate_Desc();
+                    }
+                } return validate_Desc();// else, if title taken from html  --> javascript is useless here. validate on server-side.
+            }
+            
+            function validate_Desc() {
+                if ( (document.add.description.value.length > MAX_DESC_LENGTH) || (document.add.description.value.length < MIN_DESC_LENGTH) ) {
+                    return false;
+                } else {
+                    return validate_Tags();
+                    }
+            }
+
+            function validate_Tags() {
+                if (document.add.tags.value == "") { return false; }
+                if ( (document.add.tags.value.split(" ").length > MAX_TAGS_LENGTH) || (document.add.tags.value.split(" ").length < MIN_TAGS_LENGTH) ){
+                    return false;
+                } else {
+                    return true;
+                    }
+            }
+            
+        
+        </script>
+    </head>
+
+</body>    
+$:render.ext_menu()
+
+<!-- form for adding new favorite -->
+
+<div class="notes">
+</div>
+
+  <table border="0" width="20%" align="center">
+    <p>
+        <form method="post" name="add" onsubmit="return validator();"> 
+        <tr>  <td>URL:</td> <td><input type="text" name="url" size="50" /></td>  </tr>
+        <tr>  <td>Title:</td> <td><input type="text" name="title" size="50" disabled/> Get:<input type="checkbox" name="get_title"  checked="checked" onclick="this.form.title.disabled = this.checked;"/></td>  </tr>
+        <tr>  <td>Description:</td>   <td><input type="text" name="description" size="80" /></td>  </tr>
+        <tr>  <td>Tags:</td>  <td><input type="text" name="tags" size="50" /></td>   </tr>
+        <tr>  <td>Save page:</td> <td><input type="checkbox" name="save_page" /></td>   </tr>
+        <tr>  <td><div class="save_button"><input type="submit" value="Save" /></div></td> <td>
+        </form>
+    </p>
+  
+  </table>
+
+  
+</body>
+
+
+</html>  
+  

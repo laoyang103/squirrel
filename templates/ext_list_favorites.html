@@ -1,0 +1,33 @@
+$def with (favorites)
+
+<head>
+        <style type="text/css">
+        .leftimg {
+        float:left; /* aligning by left corner */
+        margin: 10px 10px 10px 0; /* spaces around the picture */
+        }
+        </style>
+        
+</head>
+
+<!-- list favorites-->
+$# * tags are seperated by 1 whitespace
+
+$for fav in favorites:
+    <div>
+    <img height="55" width="75" src="$fav['images'][0]" border="1" class="leftimg">
+
+  
+    <a href= $fav['url'] />$fav['title']</a> <br>
+    $fav['description']<br>
+    tags:
+    $for tag in fav['tags']:
+        <a href= "/tags/$tag/0" /> $tag</a>
+    <br>
+    
+    $if fav['page_path'] != None:
+        $fav['date'].strftime("%d/%m/%Y %H:%M:%S") <u><a href="/edit/$fav['_id']"/>edit</a></u> <u><a href="/del/$fav['_id']"/>delete</a></u> <u><a href="/saved/$fav['_id']"/>saved</a></u>
+    $else:
+        $fav['date'].strftime("%d/%m/%Y %H:%M:%S") <u><a href="/edit/$fav['_id']"/>edit</a></u> <u><a href="/del/$fav['_id']"/>delete</a></u> 
+    <br><br>
+    </div>

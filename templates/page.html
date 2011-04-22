@@ -1,0 +1,39 @@
+$def with (favorites, page_num)
+
+<html>
+<!-- 
+pagination 
+favorites -- favorites limited number of favorites to show on index page
+
+-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+        <title>Home</title>
+    </head>
+    
+<body>
+
+<!-- load menu -->
+$:render.ext_menu()
+
+<!-- search form -->
+$:render.ext_search_form()
+
+<!-- tags are seperated by one whitespace -->
+$:render.ext_list_favorites(favorites)
+
+
+$ next_page = page_num + 1
+$ previous_page = page_num - 1
+
+$# if previous page number is 0 then go to /
+
+$if previous_page == 0:
+    <p><center> <a href="/" >prev</a>   <a href="/page/$next_page">next</a></center></p>
+$else:
+    <p><center> <a href="/page/$previous_page">prev</a>   <a href="/page/$next_page">next</a></center></p>
+
+</body>
+
+
+</html>

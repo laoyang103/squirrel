@@ -1,0 +1,10 @@
+#launch mongod
+$ mongod -dbpath=C:\mongodb-bin\data\db -port 27017
+
+# db dump
+$ mongodump -h localhost:27017
+stored in: [mongodir]/dump/DB_NAME/
+
+# restore db
+mongorestore -h localhost:27017
+

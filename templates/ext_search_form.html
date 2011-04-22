@@ -1,0 +1,29 @@
+
+<head>
+    <script type="text/javascript">
+        function validator() {
+            if (document.search.search_query.value.length <= 3 ) {
+                return false;
+            } else {
+                return true;
+                }
+            }
+    </script>
+    
+</head>
+<form name="search" method="post" action="squery" align="right" onsubmit="return validator();">
+
+<!-- 
+search form
+-->
+    <input type="text" name="search_query" size="20" /> <input type="submit" value="search" />
+    <br>
+    <!-- 
+    NOTE: if you want change default 'checked' status of those checkboxes be sure you also
+        update the db.py->class search, squirrel->class squery.
+     -->
+    <input type="checkbox" name="title" checked /> title
+    <input type="checkbox" name="url" /> url
+    <input type="checkbox" name="desc" checked /> desc
+    <input type="checkbox" name="tags"/> tags
+</form>

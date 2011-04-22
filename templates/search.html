@@ -1,0 +1,28 @@
+$def with (search_result, search_query, page_num, options_path)
+
+<html>
+<!-- search results -->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+    </head>
+    
+<body>    
+$:render.ext_menu()
+<br>
+
+$:render.ext_list_favorites(search_result)
+
+<!-- pagination -->
+$ next_page = page_num + 1
+$ previous_page = page_num - 1
+
+$# if previous page number is 0 then go to /
+
+$if previous_page == -1:
+    <p><center> <a href="/" >prev</a>   <a href="/search/$search_query/$options_path/$next_page">next</a></center></p>
+$else:
+    <p><center> <a href="/search/$search_query/$options_path/$previous_page">prev</a>   <a href="/search/$search_query/$options_path/$next_page">next</a></center></p>
+
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+$def with (favorite_id, old_favorite)
+
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Edit favorite</title>
+        
+        <style type="text/css">
+        .images {
+            float:left; /* aligning by left corner */
+            margin: 5px 5px 5px 0; /* spaces around the picture */
+        }
+	
+        </style>
+        
+        <script type="text/javascript" src="/static/jquery-1.5.2.js"></script>
+        
+        <script type="text/javascript">
+        
+        function set_image(img_index) {
+            $$.get('/chimage/' + '$favorite_id' + '/' + img_index);
+               }
+               
+            // VALIDATION
+            
+            
+            // MAX\MIN Title is useless if user decides to 'Get' the page, server-side validation needed.
+            // look at utils.py --> grab_title()
+            var MAX_TITLE_LENGTH = 140;
+            var MIN_TITLE_LENGTH = 4 
+            var MAX_DESC_LENGTH = 140;
+            var MIN_DESC_LENGTH = 0;
+            var MAX_TAGS_LENGTH = 10;
+            var MIN_TAGS_LENGTH = 1;
+            
+            function validator() {
+                valid = validate_URL();
+                
+                return valid;
+            }
+            
+            // lazy to write good url validator
+            function validate_URL() {
+            if ( document.add.url.value.length < 4 ) {
+                return false; 
+                } else {
+                return validate_Title();
+                }
+            }
+            
+            function validate_Title() {
+                if (document.add.get_title.value != "on") { // if title NOT extracted from html
+                 if ( (document.add.title.value.length > MAX_TITLE_LENGTH) || (document.add.title.value.length < MIN_TITLE_LENGTH) ) {
+                    return false;
+                    } else {
+                    return validate_Desc();
+                    }
+                } return validate_Desc();// else, if title extracted --> javascript is useless here. validate on server-side.
+            }
+            
+            function validate_Desc() {
+                if ( (document.add.description.value.length > MAX_DESC_LENGTH) || (document.add.description.value.length < MIN_DESC_LENGTH) ) {
+                    return false;
+                } else {
+                    return validate_Tags();
+                    }
+            }
+
+            function validate_Tags() {
+                if (document.add.tags.value == "") { return false; }
+                if ( (document.add.tags.value.split(" ").length > MAX_TAGS_LENGTH) || (document.add.tags.value.split(" ").length < MIN_TAGS_LENGTH) ){
+                    return false;
+                } else {
+                    return true;
+                    }
+            }
+            
+        
+        
+        </script>
+        
+    </head>
+    
+<body>
+
+<!-- load menu -->
+$:render.ext_menu()
+
+<div id="mydiv">
+</div>
+
+<!-- editing form  -->
+  <form name="add" method="post" onsubmit="return validator();">
+
+
+  <table border="0" width="20%">
+  <p>
+    <tr>  <td>Title:</td> <td><input type="text" name="title" size="50" value="$old_favorite['title']" enabled /> Get:<input type="checkbox" name="get_title" onclick="this.form.title.disabled = this.checked;"/></td>  </tr> 
+    <tr>  <td>Url:</td> <td><input type="text" name="url" size="100" value="$old_favorite['url']"/></td>  </tr>
+    <tr>  <td>Description:</td>   <td><input type="text" name="description" size="100" value="$old_favorite['description']"/></td>  </tr>
+    <tr>  <td>Tags:</td>  <td><input type="text" name="tags" size="100" value="$' '.join(old_favorite['tags'])"/></td>   </tr>
+    <tr>  <td>Save page:</td>   <td><input type="checkbox" name="save_page" /></td> </tr>
+    <tr>  <td>Path:</td>  <td><input type="text" value="$old_favorite['page_path']" name="save_page" size="100" disabled/> </td> </tr>
+  </p>
+  </table>
+        
+  <p><input type="submit" value="Save" /></p>
+  
+  </form>
+
+    <div class="images">
+    $# show all images
+    
+    $ newline = 1
+    $ img_index = 0
+    $for img in old_favorite['images']:
+        <img height="55" width="75" src="$img" border="1" onclick="set_image($img_index);"></a>
+        $# let's put a new line every 5 images!
+        $if newline % 5 == 0:
+            <br>
+        $ newline += 1
+        $ img_index += 1
+        
+    </div>
+    
+</body>  
+
+</html>

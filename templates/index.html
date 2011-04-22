@@ -1,0 +1,29 @@
+$def with (favorites)
+
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+        <title>Home</title>
+          
+
+  
+
+    </head>
+    
+<body>
+
+<!-- menu -->
+$:render.ext_menu()
+
+<!-- search form -->
+$:render.ext_search_form()
+
+<!-- show list of favorites -->
+$:render.ext_list_favorites(favorites)
+
+<p><center> <a href="/"  onclick="return false;">prev</a>   <a href="/page/1">next</a></center></p>
+</body>
+
+
+</html>
